@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/', 'HomeController@home')->middleware('auth');
+Route::get('/home', 'HomeController@home')->middleware('auth');
+
+Auth::routes();
+
+/*Route::group(['middleware' => 'auth'], function(){
+  Route::get('/', 'HomeController@home')->middleware('auth');
+});*/

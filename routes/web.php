@@ -17,7 +17,8 @@
 
 Route::get('/', 'HomeController@home')->middleware('auth');
 Route::get('/home', 'HomeController@home')->middleware('auth');
-
+Route::post('/', 'HomeController@create')->middleware('auth');
+Route::get('/admingroup', 'HomeController@admingroup')->middleware('auth');
 Auth::routes();
 
 /*Route::group(['middleware' => 'auth'], function(){

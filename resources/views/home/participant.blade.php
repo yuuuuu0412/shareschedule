@@ -3,6 +3,11 @@
 @section('content')
  <div class="container">
    <div class="row">
+     @if (isset($message[0]))
+      <p>{{$message}}</p>
+     @endif
+     </div>
+     <div class="row">
      <form action="{{ action('ParticipantController@create') }}" method="post"
       enctype="multipart/form-data">
       @if (count($errors) > 0)
@@ -12,14 +17,11 @@
          @endforeach
        </ul>
       @endif
-      @if ($message != null)
-       <p>echo($message)</p>
-      @endif
      <div class="form-group row">
        <label clas="col-md-2" for="groupid">参加したいグループID</label>
        <div class="col-md-10">
          <input type="text" class="form-control" name="groupid"
-          value="{{ old('id') }}">
+          value="{{ old('groupid') }}">
        </div>
      </div>
      <div class="form-group row">

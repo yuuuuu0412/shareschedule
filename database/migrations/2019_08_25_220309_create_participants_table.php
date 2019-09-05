@@ -17,6 +17,7 @@ class CreateParticipantsTable extends Migration
             $table->increments('id');
             $table->integer('groupid');
             $table->integer('participants');
+            $table->string('password');
             $table->timestamps();
         });
     }

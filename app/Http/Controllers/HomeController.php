@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Group;
 use App\Participant;
 use App\User;
-
+use Illuminate\Support\Facades\Log;
 class HomeController extends Controller
 {
     /*
@@ -31,17 +31,21 @@ class HomeController extends Controller
       $id = \Auth::id();
       //ログインユーザーの作ったデータをすべて取得
       $admingroup = Group::where('adminid', $id)->get();
-      //ログインユーザーのグループ参加記録をすべて取得
-      $participant = Participant::where('participants', $id)->get();
-  //    if ($participant != null) {
+      //ログインユーザーのグループ参加記録をすべて取得し、それらのグループIDを抜き出す
+      $participant = Participant::where('participants', $id)->pluck('groupid');
+      if (isset($participant[0])) {
       //グループ参加記録に基づいて、参加中のグループをすべて取得
-        $participantgroup = Group::where('id', $participant->groupid)->get();
-  //  }else {
-  //    $participantgroup = null;
+    Log::debug('デバッグメッセージ');
+    Log::debug($participant);
+    Log::debug('デバッグメッセージ2');
+      $participantgroup = Group::whereIn('id', $participant)->get();
+      }else {
+      $participantgroup = array();
+     }
       return view('home.home', ['admingroup' => $admingroup,
        'participantgroup' => $participantgroup]);
-  //   }
-   }
+      }
+
 
     public function create(Request $request)
     {
@@ -64,6 +68,6 @@ class HomeController extends Controller
     public function participantgroup(Request $request)
     {
       $group = Group::find($request->id);
-      return view('home.participant@group', ['group' => $group]);
+      return view('home.participantgroup', ['group' => $group]);
     }
 }

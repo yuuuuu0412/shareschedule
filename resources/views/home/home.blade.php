@@ -7,13 +7,13 @@
      <div class="col-md-6 mx-auto">
        <p>作成したグループ</p>
        @foreach($admingroup as $group1)
-        <a href="{{ action('HomeController@admingroup', ['id' => $group1->id]) }}">{{ $group1->name }}</a><br>
+        <a href="{{ action('GroupController@index', ['id' => $group1->id]) }}">{{ $group1->name }}</a><br>
        @endforeach
      </div>
       <div class="col-md-6 mx-auto">
        <p>参加中のグループ</p>
        @foreach($participantgroup as $group2)
-        <a href="{{ action('HomeController@participantgroup', ['id' => $group2->id]) }}">{{ $group2->name }}</a><br>
+        <a href="{{ action('GroupController@index', ['id' => $group2->id]) }}">{{ $group2->name }}</a><br>
        @endforeach
        <a href="{{ action('ParticipantController@index') }}">新たにグループに参加する</a>
      </div>

@@ -21,9 +21,9 @@ class ParticipantController extends Controller
     $this->validate($request, Participant::$rules); //バリデーション
     $id = \Auth::id();//ログインユーザーのIDの取得
     $group = Group::where('id', $request->groupid)->first();//参加希望のグループを取得
-    Log::debug('デバッグメッセージ');
-    Log::debug($group);
-    Log::debug('デバッグメッセージ2');
+    //Log::debug('デバッグメッセージ');
+    //Log::debug($group);
+    //Log::debug('デバッグメッセージ2');
     if (empty($group)) {
       //検索したグループが存在しない場合
       $message = '検索したグループは存在しません。';
@@ -54,6 +54,6 @@ class ParticipantController extends Controller
           unset($form['_token']);
           $participant->fill($form);
           $participant->save();
-          return view('home.home');
+          return redirect('/home');
       }
     }

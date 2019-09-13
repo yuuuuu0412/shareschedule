@@ -35,9 +35,6 @@ class HomeController extends Controller
       $participant = Participant::where('participants', $id)->pluck('groupid');
       if (isset($participant[0])) {
       //グループ参加記録に基づいて、参加中のグループをすべて取得
-    Log::debug('デバッグメッセージ');
-    Log::debug($participant);
-    Log::debug('デバッグメッセージ2');
       $participantgroup = Group::whereIn('id', $participant)->get();
       }else {
       $participantgroup = array();

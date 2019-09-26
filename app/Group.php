@@ -12,5 +12,9 @@ class Group extends Model
       'password' => 'required',
       'adminid' => 'required',
     );
+    public function posts()
+    {
+      return $this->hasMany('App\Post');
+    }
 
 }

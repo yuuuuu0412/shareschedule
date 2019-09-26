@@ -27,6 +27,9 @@ Route::post('/group', 'GroupController@update')->middleware('auth');
 Route::get('/group/delete', 'GroupController@delete')->middleware('auth');
 Route::get('/group/delete_do', 'GroupController@delete_do')->middleware('auth');
 Route::get('/group/destroy', 'GroupController@destroy')->middleware('auth');
+Route::get('/posts/create', 'PostsController@new')->middleware('auth');
+Route::post('/posts/create', 'PostsController@create')->middleware('auth');
+Route::get('/posts/detail', 'PostsController@show')->middleware('auth');
 Auth::routes();
 
 /*Route::group(['middleware' => 'auth'], function(){

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Group;
 use App\Participant;
 use App\User;
+use App\Post;
+use App\Comment;
 use Illuminate\Support\Facades\Log;
 
 class GroupController extends Controller
@@ -14,10 +16,8 @@ class GroupController extends Controller
   {
     $group = Group::find($request->id);
     $adminUser = User::find($group->adminid);
-  //  Log::debug('デバッグメッセージ');
-  //  Log::debug($participant);
-  //  Log::debug('デバッグメッセージ2');
-return view('home.group', ['group' => $group, 'adminUser' => $adminUser]);
+    $posts = Post::where('group_id', $request->id)->orderBy('created_at', 'desc')->get();
+   return view('home.group', ['group' => $group, 'adminUser' => $adminUser, 'posts' => $posts]);
   }
 
   public function edit(Request $request)
@@ -44,7 +44,8 @@ return view('home.group', ['group' => $group, 'adminUser' => $adminUser]);
     }
     $group->save();
     $adminUser = User::find($group->adminid);
-    return view('home.group', ['group' => $group, 'adminUser' => $adminUser]);
+    $posts = Post::where('group_id', $request->id)->orderBy('created_at', 'desc')->get();
+    return view('home.group', ['group' => $group, 'adminUser' => $adminUser, 'posts' => $posts]);
   }
 
   public function delete(Request $request)
@@ -72,7 +73,8 @@ return view('home.group', ['group' => $group, 'adminUser' => $adminUser]);
     //indexに戻るための儀式
     $group = Group::find($request->group_id);
     $adminUser = User::find($group->adminid);
-    return view('home.group', ['group' => $group, 'adminUser' => $adminUser]);
+    $posts = Post::where('group_id', $request->id)->orderBy('created_at', 'desc')->get();
+    return view('home.group', ['group' => $group, 'adminUser' => $adminUser, 'posts' => $posts]);
   }
 
   public function destroy(Request $request)
